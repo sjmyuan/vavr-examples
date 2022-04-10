@@ -38,6 +38,22 @@ public class OptionTest {
         assertThat(intValue).isEqualTo(Option.none());
     }
 
+
+    @Test
+    public void canBeConstructedByCondition() {
+        Option<Integer> trueValue = Option.when(true, () -> 1);
+        assertThat(trueValue).isEqualTo(Option.some(1));
+
+        Option<Integer> trueValue2 = Option.when(true, 1);
+        assertThat(trueValue2).isEqualTo(Option.some(1));
+
+        Option<Integer> falseValue = Option.when(false, () -> 1);
+        assertThat(falseValue).isEqualTo(Option.none());
+
+        Option<Integer> falseValue2 = Option.when(false, 1);
+        assertThat(falseValue2).isEqualTo(Option.none());
+    }
+
     @Test
     public void canDoFilterForSome() {
         Option<Integer> intValue = Option.of(1);
@@ -141,5 +157,19 @@ public class OptionTest {
     public void canIgnoreThrowingErrorForSome() {
         Option<Integer> intValue = Option.of(1);
         assertThat(intValue.getOrElseThrow(() -> new Error("empty value"))).isEqualTo(1);
+    }
+
+    @Test
+    public void canDoDifferentOperationForSomeAndNone() {
+        assertThat(Option.of(1).fold(() -> "none", x -> x.toString())).isEqualTo("1");
+        assertThat(Option.of(null).fold(() -> "none", x -> x.toString())).isEqualTo("none");
+    }
+
+    @Test
+    public void canBeChangedToOtherOptionForNone() {
+        assertThat(Option.of(1).orElse(() -> Option.of(2))).isEqualTo(Option.of(1));
+        assertThat(Option.of(1).orElse(Option.of(2))).isEqualTo(Option.of(1));
+        assertThat(Option.of(null).orElse(() -> Option.of(2))).isEqualTo(Option.of(2));
+        assertThat(Option.of(null).orElse(Option.of(2))).isEqualTo(Option.of(2));
     }
 }
