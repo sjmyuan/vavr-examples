@@ -1,6 +1,7 @@
 package io.github.sjmyuan.vavr;
 
 import org.junit.Test;
+import io.vavr.control.Either;
 import io.vavr.control.Option;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -171,5 +172,11 @@ public class OptionTest {
         assertThat(Option.of(1).orElse(Option.of(2))).isEqualTo(Option.of(1));
         assertThat(Option.of(null).orElse(() -> Option.of(2))).isEqualTo(Option.of(2));
         assertThat(Option.of(null).orElse(Option.of(2))).isEqualTo(Option.of(2));
+    }
+
+    @Test
+    public void canBeChangedToEither() {
+        assertThat(Option.of(1).toEither("Error")).isEqualTo(Either.right(1));
+        assertThat(Option.of(null).toEither("Error")).isEqualTo(Either.left("Error"));
     }
 }
