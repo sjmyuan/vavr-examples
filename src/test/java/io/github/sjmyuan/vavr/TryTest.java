@@ -101,8 +101,8 @@ public class TryTest {
     @Test
     public void canDoMapForFailure() {
         Try<Integer> intValue = Try.failure(new Exception("Error"));
-        // assertThat(intValue.mapFailure(Case($(), new Exception("Bad"))).getCause())
-        // .hasMessageContaining("Bad");
+        assertThat(intValue.mapFailure(Case($(), new Exception("Bad"))).getCause())
+                .hasMessageContaining("Bad");
         assertThat(intValue.map(x -> x + 1)).isEqualTo(intValue);
     }
 
