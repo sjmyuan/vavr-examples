@@ -28,6 +28,15 @@ public class ListTest {
     }
 
     @Test
+    public void shouldBeImmutable() {
+        List<Integer> intList = List.of(1, 2, 3);
+        List<Integer> intList2 = intList.append(4);
+
+        assertThat(intList).isEqualTo(List.of(1, 2, 3));
+        assertThat(intList2).isEqualTo(List.of(1, 2, 3, 4));
+    }
+
+    @Test
     public void canBeConstructedFromJavaStream() {
         java.util.stream.Stream<Integer> javaStream = java.util.stream.Stream.of(1, 2, 3);
         List<Integer> intList = List.ofAll(javaStream);
