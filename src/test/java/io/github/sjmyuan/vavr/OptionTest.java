@@ -167,6 +167,12 @@ public class OptionTest {
     }
 
     @Test
+    public void canDoFoldLeft() {
+        assertThat(Option.of(1).fold(() -> "none", x -> x.toString())).isEqualTo("1");
+        assertThat(Option.of(null).fold(() -> "none", x -> x.toString())).isEqualTo("none");
+    }
+
+    @Test
     public void canBeChangedToOtherOptionForNone() {
         assertThat(Option.of(1).orElse(() -> Option.of(2))).isEqualTo(Option.of(1));
         assertThat(Option.of(1).orElse(Option.of(2))).isEqualTo(Option.of(1));

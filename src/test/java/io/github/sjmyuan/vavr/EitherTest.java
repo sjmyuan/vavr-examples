@@ -180,9 +180,9 @@ public class EitherTest {
 
     @Test
     public void canDoDifferentOperationForLeftAndRight() {
-        assertThat(Either.right(1).<String>fold((e) -> "none", x -> x.toString())).isEqualTo("1");
-        assertThat(Either.left("Error").<String>fold((e) -> "none", x -> x.toString()))
-                .isEqualTo("none");
+        assertThat(Either.right(1).<String>fold((e) -> "left", x -> x.toString())).isEqualTo("1");
+        assertThat(Either.left("Error").<String>fold((e) -> "left", x -> x.toString()))
+                .isEqualTo("left");
     }
 
     @Test
