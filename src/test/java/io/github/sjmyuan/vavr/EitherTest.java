@@ -198,4 +198,10 @@ public class EitherTest {
         assertThat(Either.right(1).toOption()).isEqualTo(Option.some(1));
         assertThat(Either.left("Error").toOption()).isEqualTo(Option.none());
     }
+
+    @Test
+    public void supportEqual() {
+        assertThat(Either.right(1)).isEqualTo(Either.right(1));
+        assertThat(Either.left("Error")).isEqualTo(Either.left("Error"));
+    }
 }

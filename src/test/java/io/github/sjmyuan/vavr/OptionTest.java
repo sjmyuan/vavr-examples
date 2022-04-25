@@ -185,4 +185,12 @@ public class OptionTest {
         assertThat(Option.of(1).toEither("Error")).isEqualTo(Either.right(1));
         assertThat(Option.of(null).toEither("Error")).isEqualTo(Either.left("Error"));
     }
+
+    @Test
+    public void supportToCheckType() {
+        assertThat(Option.some(1).isDefined()).isTrue();
+        assertThat(Option.some(1).isEmpty()).isFalse();
+        assertThat(Option.none().isDefined()).isFalse();
+        assertThat(Option.none().isEmpty()).isTrue();
+    }
 }
